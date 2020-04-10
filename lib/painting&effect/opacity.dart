@@ -1,0 +1,87 @@
+import 'package:flutter/material.dart';
+
+
+import 'package:widget_with_codeview/widget_with_codeview.dart';
+
+class Opacityy extends StatefulWidget {
+  @override
+  _OpacityyState createState() => _OpacityyState();
+}
+
+class _OpacityyState extends State<Opacityy> {
+    
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+
+      appBar: AppBar( 
+        actions: <Widget>[
+           IconButton(icon: Icon( Icons.code,color: Colors.black,size: 35,)
+           
+           , onPressed: (){
+           Navigator.of(context).push(MaterialPageRoute(builder:  (context)=>Codeview()));
+
+           })
+         ],
+         leading: IconButton(icon:  Icon( Icons.arrow_back, color: Colors.black,
+          size: 30,
+          ), onPressed:(){
+            Navigator.of(context).pop();
+          }),
+           centerTitle: true,
+           backgroundColor: Colors.white,
+           title: Text(" Opacity ",style: TextStyle(color: Colors.black),),
+         ),
+     
+      body: new Stack(
+        children: <Widget>[
+         Center(
+        child: Opacity(
+          opacity: 0.5,
+          child: Container(
+          color: Colors.red,
+          width: 200,
+          height: 200,
+  ),
+        ),
+
+        
+        
+      
+          )
+        ],
+      ),
+       
+    );
+  }
+}
+
+
+class Codeview extends StatefulWidget {
+  @override
+  _CodeviewState createState() => _CodeviewState();
+}
+
+class _CodeviewState extends State<Codeview> {
+  @override
+  Widget build(BuildContext context) {
+    return  SafeArea(
+      child: WidgetWithCodeView(
+  child: MyAwesomeWidget(),
+  sourceFilePath: 'lib/painting&effect/opacity.dart',
+  codeLinkPrefix: 'https://github.com/yashvenrakumar/flutter_widgets/blob/master/lib/painting%26effect/opacity.dart',
+      ),
+      
+    );
+  }
+}
+
+  class MyAwesomeWidget extends StatelessWidget {
+    @override
+    Widget build(BuildContext context) {
+      return  SafeArea(
+        child: Opacityy());
+    }
+  }
+ 
+ 
