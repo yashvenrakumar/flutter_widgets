@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:widget_with_codeview/widget_with_codeview.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 class FancyFab extends StatefulWidget {
   final Function() onPressed;
   final String tooltip;
@@ -18,36 +19,8 @@ class _FancyFabState extends State<FancyFab>
   Animation<Color> _buttonColor;
   Animation<double> _animateIcon;
  // Curve _curve = Curves.easeOut;
-
-  @override
-  initState() {
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500))
-          ..addListener(() {
-            setState(() {});
-          });
-    _animateIcon =
-        Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
-    _buttonColor = ColorTween(
-      begin: Colors.blue,
-      end: Colors.red,
-    ).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Interval(
-        0.00,
-        1.00,
-        curve: Curves.linear,
-      ),
-    ));
-    super.initState();
-  }
-
-  @override
-  dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-
+ 
+ 
   animate() {
     if (!isOpened) {
       _animationController.forward();
@@ -101,6 +74,82 @@ class _FancyFabState extends State<FancyFab>
     );
   }
 
+
+
+static final MobileAdTargetingInfo targetInfo = new MobileAdTargetingInfo(
+    testDevices: <String>[],
+    keywords: <String>['software','web development','app development','java ', 'python','machine learning' ,'data science','robotics','mathematics','physics','technology','college' 'microsoft'],
+   
+    childDirected: true,
+    nonPersonalizedAds: true,
+    
+    
+  );
+
+
+  BannerAd _bannerAd;
+  InterstitialAd _interstitialAd;
+ 
+
+  BannerAd createBannerAd() {
+    return new BannerAd(
+        adUnitId: "ca-app-pub-3032113909807052/1268587433",
+        size: AdSize.banner,
+        targetingInfo: targetInfo,
+        listener: (MobileAdEvent event) { 
+          print("Banner event : $event");
+        });
+  }
+
+  InterstitialAd createInterstitialAd() {
+    return new InterstitialAd(
+        adUnitId: "ca-app-pub-3032113909807052/7043017665",
+        targetingInfo: targetInfo,
+        listener: (MobileAdEvent event) {
+          print("Interstitial event : $event");
+        });
+  }
+
+   @override
+  void initState() {
+      
+    super.initState();
+     _animationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 500))
+          ..addListener(() {
+            setState(() {});
+          });
+    _animateIcon =
+        Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
+    _buttonColor = ColorTween(
+      begin: Colors.blue,
+      end: Colors.red,
+    ).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Interval(
+        0.00,
+        1.00,
+        curve: Curves.linear,
+      ),
+    ));
+
+    FirebaseAdMob.instance
+        .initialize(appId: "ca-app-pub-3032113909807052~8795083036");
+    _bannerAd = createBannerAd()
+      ..load()
+      ..show();
+    
+  }
+
+  @override
+  void dispose() {
+    _bannerAd?.dispose();
+    _interstitialAd?.dispose();
+    _animationController.dispose();
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -132,6 +181,8 @@ class _FancyFabState extends State<FancyFab>
           color: Colors.black, fontSize: 20),),
 
             onPressed:(){
+                            createInterstitialAd()..load()..show();
+
             Navigator.of(context).push( MaterialPageRoute(builder: (context)=>Codeview()));
           }),
         )

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
@@ -12,12 +13,13 @@ import 'fluttermultilay.dart';
 import 'flutternavigation.dart';
 import 'flutterpainting.dart';
 import 'flutterscrolling.dart';
-import 'fluttersinglelay.dart'; 
-import 'package:firebase_admob/firebase_admob.dart';
+import 'fluttersinglelay.dart';  
 
+import 'messaging/msg.dart';
 
+ 
 
-const String testDevice = '';
+const String testDevice = 'RMX1811';
 
 void main() => runApp(MyApp());
 
@@ -52,12 +54,12 @@ class _MyAppaState extends State<MyAppa> {
   Widget build(BuildContext context) {
     return new SplashScreen(
 
-      seconds: 10,
+      seconds: 4,
       navigateAfterSeconds: Matedesign(),
       title: new Text('Welcome In flutter Widgets',
         style: new TextStyle(
           fontWeight: FontWeight.bold,
-          fontSize: 27.0
+          fontSize: 25.0
         ),
       ),
     
@@ -74,7 +76,7 @@ class _MyAppaState extends State<MyAppa> {
                                            ]
                                                       ),
      // styleTextUnderTheLoader: new TextStyle(),
-      photoSize: 210.0,
+      photoSize: 200.0,
       onClick: ()=>print("Flutter wigdet"),
       loaderColor: Colors.blueAccent,
     );
@@ -91,57 +93,7 @@ class _MyAppaState extends State<MyAppa> {
  
  class _MatedesignState extends State<Matedesign> {
 
-  static final MobileAdTargetingInfo targetInfo = new MobileAdTargetingInfo(
-    testDevices: <String>[],
-    keywords: <String>['google products', 'google pay', 'microsoft'],
-    birthday: new DateTime.now(),
-    childDirected: true,
-  );
-
-  BannerAd _bannerAd;
-  InterstitialAd _interstitialAd;
- 
-
-  BannerAd createBannerAd() {
-    return new BannerAd(
-        adUnitId: "ca-app-pub-4252364201498947/3350664917",
-        size: AdSize.banner,
-        targetingInfo: targetInfo,
-        listener: (MobileAdEvent event) { 
-          print("Banner event : $event");
-        });
-  }
-
-  InterstitialAd createInterstitialAd() {
-    return new InterstitialAd(
-        adUnitId: "ca-app-pub-4252364201498947/5536052541",
-        targetingInfo: targetInfo,
-        listener: (MobileAdEvent event) {
-          print("Interstitial event : $event");
-        });
-  }
-
-   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    FirebaseAdMob.instance
-        .initialize(appId: "ca-app-pub-4252364201498947~9120074333");
-    _bannerAd = createBannerAd()
-      ..load()
-      ..show();
-    
-  }
-
-  @override
-  void dispose() {
-    _bannerAd?.dispose();
-    _interstitialAd.dispose();
-     
-    super.dispose();
-  }
-
-
+   
 
 
    @override
@@ -150,22 +102,14 @@ class _MyAppaState extends State<MyAppa> {
        appBar: AppBar(
          centerTitle: true,
          actions: <Widget>[
-            RaisedButton(
-              color: Colors.blue[200],
-              elevation: 0,
-            onPressed: () {
-                       Navigator.of(context).push(MaterialPageRoute(
-                       builder: (BuildContext context) => MyWebView(
-                                 title: " flutter official wabsite ",
-                                 //selectedUrl: "https://pub.dev/packages/firebase_storage",
-                                  
-                               selectedUrl: "https://flutter.dev/docs/development/ui/widgets",
-                                        ),
-                                     ),
-                                    );
-                                   },
-           child: FlutterLogo(size: 40,)),
-         ],
+           IconButton(icon:  Icon( Icons.view_day, color: Colors.black,size: 30,), 
+           
+           onPressed: (){
+           Navigator.of(context).push( MaterialPageRoute(builder:  (context)=>Msg()));
+
+
+           })
+               ],
          elevation:0,
          backgroundColor: Colors.blue[200],
          title: Text("Flutter Widgets",style: TextStyle(
@@ -189,12 +133,15 @@ class _MyAppaState extends State<MyAppa> {
                  ),),
                    ),),
                ),
-              
+
+                       
                 Container(
                  
-                 margin: EdgeInsets.all( 12),
-                 height: 130,
+                
+                 height: 70,
                  decoration: BoxDecoration(
+               
+
                    border: Border.all(
                      color: Colors.white,
                      width: 5,
@@ -202,11 +149,48 @@ class _MyAppaState extends State<MyAppa> {
                  ),
                   width: MediaQuery.of(context).size.width,
                   child: RaisedButton(
+                  
+                    color: Colors.orange[100],
+                    elevation: 5,
+                     child: Text("flutter Backend Post ",style: TextStyle(
+                   fontSize: 30, fontWeight: FontWeight.bold, color: Colors.orange                ),),
+                    onPressed: (){
+                     
+ 
+                       
+
+                     Navigator.of(context).push(MaterialPageRoute(
+                       builder: (BuildContext context) => Msg(),
+                                     ),
+                                    );
+
+                   }),
+               ),
+
+              
+                Container(
+                 
+                 margin: EdgeInsets.all( 12),
+                 height: 130,
+                 decoration: BoxDecoration(
+               
+
+                   border: Border.all(
+                     color: Colors.white,
+                     width: 5,
+                   )
+                 ),
+                  width: MediaQuery.of(context).size.width,
+                  child: RaisedButton(
+                  
                     color: Colors.white,
                     elevation: 5,
                      child: Text("fluter animation ",style: TextStyle(
                    fontSize: 35, fontWeight: FontWeight.bold, color: Colors.lightBlue                ),),
                     onPressed: (){
+                     
+ 
+                      //reateInterstitialAd()..load()..show();
 
                      Navigator.of(context).push(MaterialPageRoute(
                        builder: (BuildContext context) => FlutterAnimatio(),
@@ -235,6 +219,7 @@ class _MyAppaState extends State<MyAppa> {
                      child: Text("flutter painting & effects",style: TextStyle(
                    fontSize: 35, fontWeight: FontWeight.bold, color: Colors.lightBlue                ),),
                     onPressed: (){
+                      
 
                      Navigator.of(context).push(MaterialPageRoute(
                        builder: (BuildContext context) => FlutterPainting(),
@@ -246,7 +231,7 @@ class _MyAppaState extends State<MyAppa> {
                ),
 
                 Container(
-                 
+                 margin: EdgeInsets.all( 10),
                  height: 130,
                  decoration: BoxDecoration(
                    border: Border.all(
@@ -261,6 +246,7 @@ class _MyAppaState extends State<MyAppa> {
                      child: Text("flutter scrolling",style: TextStyle(
                    fontSize: 35, fontWeight: FontWeight.bold, color: Colors.lightBlue                )),
                     onPressed: (){
+                       
 
                      Navigator.of(context).push(MaterialPageRoute(
                        builder: (BuildContext context) => Flutterscrolling(),
@@ -289,6 +275,7 @@ class _MyAppaState extends State<MyAppa> {
                      child: Text("flutter single layout",style: TextStyle(
                    fontSize: 35, fontWeight: FontWeight.bold, color: Colors.lightBlue           ),),
                     onPressed: (){
+                       
 
                      Navigator.of(context).push(MaterialPageRoute(
                        builder: (BuildContext context) => Fluttersinglelay(),
@@ -317,6 +304,7 @@ class _MyAppaState extends State<MyAppa> {
                      child: Text("flutter multiple layout",style: TextStyle(
                    fontSize: 35, fontWeight: FontWeight.bold, color: Colors.lightBlue         ),),
                     onPressed: (){
+                       
 
                      Navigator.of(context).push(MaterialPageRoute(
                        builder: (BuildContext context) => Fluttermultilay(),
@@ -374,6 +362,7 @@ class _MyAppaState extends State<MyAppa> {
                    fontSize: 35, fontWeight: FontWeight.bold, color: Colors.lightBlue   
                    ),),
                     onPressed: (){
+                       
 
                      Navigator.of(context).push(MaterialPageRoute(
                        builder: (BuildContext context) =>  Flutterdialog(),
@@ -404,6 +393,7 @@ class _MyAppaState extends State<MyAppa> {
                    )
                    ,),
                     onPressed: (){
+                      
 
                      Navigator.of(context).push(MaterialPageRoute(
                        builder: (BuildContext context) => Flutterbuttonn(),
@@ -433,6 +423,7 @@ class _MyAppaState extends State<MyAppa> {
                    fontSize: 35, fontWeight: FontWeight.bold, color: Colors.lightBlue  
                    ),),
                     onPressed: (){
+                        
 
                      Navigator.of(context).push(MaterialPageRoute(
                        builder: (BuildContext context) => Flutternavigation(),
@@ -529,6 +520,34 @@ class _MyAppaState extends State<MyAppa> {
                height: 10,
                color: Colors.lightBlueAccent,
              ),
+
+              Container(
+              margin: EdgeInsets.all( 5),
+              
+           width: MediaQuery.of(context).size.width,
+           height: 70,
+           child: RaisedButton(
+              color: Colors.orange[100],
+             elevation: 10,
+              onPressed: () {
+                   
+                       Navigator.of(context).push(MaterialPageRoute(
+                       builder: (BuildContext context) => Msg(),
+                                     ),
+                                    );
+                                   },
+ 
+            child: ListTile(
+              leading: FlutterLogo(size: 40,),
+              title:  Text( " flutter backend ",style: TextStyle(fontSize:20,color: Colors.black),)
+            ),
+            //  child: Center(
+            //    child: Text( "JEE SYLLABUS",style: TextStyle(fontSize:30,color: Colors.black),),
+              
+            //  ),
+           ),
+            ),
+
            
             Container(
               margin: EdgeInsets.all( 5),
@@ -539,6 +558,7 @@ class _MyAppaState extends State<MyAppa> {
               color: Colors.white,
              elevation: 10,
               onPressed: () {
+                   
                        Navigator.of(context).push(MaterialPageRoute(
                        builder: (BuildContext context) => MyWebView(
                                  title: " flutter official wabsite ",
@@ -570,6 +590,8 @@ class _MyAppaState extends State<MyAppa> {
               color: Colors.white,
              elevation: 10,
               onPressed: () {
+                                       
+
                        Navigator.of(context).push(MaterialPageRoute(
                        builder: (BuildContext context) => MyWebView(
                                  title: " flutter youtube ",
@@ -596,6 +618,8 @@ class _MyAppaState extends State<MyAppa> {
               color: Colors.white,
              elevation: 10,
               onPressed: () {
+                                        
+
                        Navigator.of(context).push(MaterialPageRoute(
                        builder: (BuildContext context) => MyWebView(
                                  title: " flutter github ",
@@ -622,6 +646,8 @@ class _MyAppaState extends State<MyAppa> {
               color: Colors.white,
              elevation: 10,
              onPressed: () {
+                                       
+
                        Navigator.of(context).push(MaterialPageRoute(
                        builder: (BuildContext context) => MyWebView(
                                  title: " flutter twitter",
@@ -648,6 +674,8 @@ class _MyAppaState extends State<MyAppa> {
              color: Colors.white,
              elevation: 10,
              onPressed: () {
+                                      
+
                        Navigator.of(context).push(MaterialPageRoute(
                        builder: (BuildContext context) => MyWebView(
                                  title: " flutter package ",
@@ -712,7 +740,18 @@ class _MyAppaState extends State<MyAppa> {
       ),
 
 
-
+       floatingActionButton: FloatingActionButton.extended(
+         label: Text(' firebase'),
+         backgroundColor: Colors.orangeAccent,
+         elevation: 10,
+         focusColor: Colors.orange[100],
+          //icon: Icon(icon),
+        onPressed: (){
+          Navigator.of(context).pop();
+        },
+        
+        
+      ),
 
      );
    }
@@ -728,7 +767,7 @@ class _MyAppaState extends State<MyAppa> {
 
  
 class MyWebView extends StatelessWidget {
-  final String title;
+  final String title;+
   final String selectedUrl;
  
   final Completer<WebViewController> _controller = Completer<WebViewController>();
@@ -753,19 +792,15 @@ class MyWebView extends StatelessWidget {
             },
           ), 
         ) ,
-        floatingActionButton: FloatingActionButton(onPressed: (){
-              
-          Navigator.of(context).pop();
-        },
-        child: Icon( Icons.arrow_back,color: Colors.black,),
-        
-      ),
+       
         
         );
   }
 
 
 }
+
+
 
 Future<void> _shareText() async {
     try {

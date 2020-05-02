@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'painting&effect/backbropfilter.dart';
 import 'painting&effect/clipoval.dart';
 import 'painting&effect/clippath.dart';
@@ -147,7 +146,7 @@ class _FlutterPaintingState extends State<FlutterPainting> {
                                                           alignment: Alignment.center,
                             
                                   child: Text(  'Flutter  ClipPath',
-                                  style: TextStyle(fontSize: 25.0,
+                                style: TextStyle(fontSize: 25.0,
                                   fontWeight: FontWeight.bold, color: Colors.black),),
                                 ),
                                          ),
