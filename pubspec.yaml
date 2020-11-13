@@ -3,7 +3,6 @@ description: A new Flutter project.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 version: 1.0.0+1
-
 environment:
   sdk: ">=2.1.0 <3.0.0"
 
@@ -18,10 +17,20 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  google_maps_flutter:  
+  google_map_polyline:
+  permission:
+  map_polyline_draw:
+  upi_india: ^2.2.0+1
+  location: ^3.0.2
+  geolocator:
+  flutter_polyline_points:
+  
+  search_map_place:
   splashscreen:
   giffy_dialog:
-  widget_with_codeview:
-  webview_flutter:
+  widget_with_codeview: 
   url_launcher:
   esys_flutter_share:
   firebase_admob: 
@@ -29,7 +38,12 @@ dev_dependencies:
   cloud_firestore:
   in_app_purchase:
   firebase_core:
-  
+  flutter_webview_plugin:
+  flutter_youtube:
+  carousel_pro:
+  fancy_bottom_navigation:
+  firebase_in_app_messaging:
+  extended_image:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
@@ -134,6 +148,17 @@ flutter:
    - lib/singlelayout/offstage.dart
    - lib/singlelayout/overflowbox.dart
    - lib/singlelayout/sizebox.dart
+
+   - lib/course/googlemap/samplemap/simplemap.dart
+ 
+   - assets/flu.png
+   - assets/flu1.png
+   - assets/flu2.png
+   - assets/flu3.png
+   - assets/flu4.png
+   - assets/flu5.png
+   - assets/marker.png
+   - assets/marker.json
 
    
 

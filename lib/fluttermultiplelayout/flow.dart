@@ -8,28 +8,35 @@ class FlowApp extends StatefulWidget {
 }
 
 class _FlowAppState extends State<FlowApp> {
-
   static final MobileAdTargetingInfo targetInfo = new MobileAdTargetingInfo(
     testDevices: <String>[],
-    keywords: <String>['software','web development','app development','java ', 'python','machine learning' ,'data science','robotics','mathematics','physics','technology','college' 'microsoft'],
-   
+    keywords: <String>[
+      'software',
+      'web development',
+      'app development',
+      'java ',
+      'python',
+      'machine learning',
+      'data science',
+      'robotics',
+      'mathematics',
+      'physics',
+      'technology',
+      'college' 'microsoft'
+    ],
     childDirected: true,
     nonPersonalizedAds: true,
-    
-    
   );
-
 
   BannerAd _bannerAd;
   InterstitialAd _interstitialAd;
- 
 
   BannerAd createBannerAd() {
     return new BannerAd(
         adUnitId: "ca-app-pub-3032113909807052/1268587433",
         size: AdSize.banner,
         targetingInfo: targetInfo,
-        listener: (MobileAdEvent event) { 
+        listener: (MobileAdEvent event) {
           print("Banner event : $event");
         });
   }
@@ -43,49 +50,57 @@ class _FlowAppState extends State<FlowApp> {
         });
   }
 
-   @override
+  @override
   void initState() {
-      
     super.initState();
     FirebaseAdMob.instance
         .initialize(appId: "ca-app-pub-3032113909807052~8795083036");
     _bannerAd = createBannerAd()
       ..load()
       ..show();
-    
   }
 
   @override
   void dispose() {
     _bannerAd?.dispose();
     _interstitialAd?.dispose();
-     
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return   Scaffold(
-       appBar: AppBar( 
-         actions: <Widget>[
-           IconButton(icon: Icon( Icons.code,color: Colors.black,size: 35,)
-           
-           , onPressed: (){
-           Navigator.of(context).push(MaterialPageRoute(builder:  (context)=>Codeview()));
-
-           })
-         ],
-          leading: IconButton(icon:  Icon( Icons.arrow_back, color: Colors.black,
-          size: 30,
-          ), onPressed:(){
-            Navigator.of(context).pop();
-          }),
-           centerTitle: true,
-           backgroundColor: Colors.white,
-           title: Text(" Flow",style: TextStyle(color: Colors.black),),
-         ),
-        body: FlowMenu(),
-      
+    return Scaffold(
+      appBar: AppBar(
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(
+                Icons.code,
+                color: Colors.black,
+                size: 35,
+              ),
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => Codeview()));
+              })
+        ],
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+              size: 30,
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            }),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        title: Text(
+          " Flow",
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
+      body: FlowMenu(),
     );
   }
 }
@@ -95,7 +110,8 @@ class FlowMenu extends StatefulWidget {
   _FlowMenuState createState() => _FlowMenuState();
 }
 
-class _FlowMenuState extends State<FlowMenu> with SingleTickerProviderStateMixin {
+class _FlowMenuState extends State<FlowMenu>
+    with SingleTickerProviderStateMixin {
   AnimationController menuAnimation;
   IconData lastTapped = Icons.notifications;
   final List<IconData> menuItems = <IconData>[
@@ -107,8 +123,7 @@ class _FlowMenuState extends State<FlowMenu> with SingleTickerProviderStateMixin
   ];
 
   void _updateMenu(IconData icon) {
-    if (icon != Icons.menu)
-      setState(() => lastTapped = icon);
+    if (icon != Icons.menu) setState(() => lastTapped = icon);
   }
 
   @override
@@ -121,7 +136,8 @@ class _FlowMenuState extends State<FlowMenu> with SingleTickerProviderStateMixin
   }
 
   Widget flowMenuItem(IconData icon) {
-    final double buttonDiameter = MediaQuery.of(context).size.width / menuItems.length;
+    final double buttonDiameter =
+        MediaQuery.of(context).size.width / menuItems.length;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: RawMaterialButton(
@@ -132,8 +148,8 @@ class _FlowMenuState extends State<FlowMenu> with SingleTickerProviderStateMixin
         onPressed: () {
           _updateMenu(icon);
           menuAnimation.status == AnimationStatus.completed
-            ? menuAnimation.reverse()
-            : menuAnimation.forward();
+              ? menuAnimation.reverse()
+              : menuAnimation.forward();
         },
         child: Icon(
           icon,
@@ -146,38 +162,34 @@ class _FlowMenuState extends State<FlowMenu> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
-          children: <Widget>[
-
-            Container(
-              height: 300,
-        child: Flow(
-          delegate: FlowMenuDelegate(menuAnimation: menuAnimation),
-          children: menuItems.map<Widget>((IconData icon) => flowMenuItem(icon)).toList(),
+    return Column(
+      children: <Widget>[
+        Container(
+          height: 300,
+          child: Flow(
+            delegate: FlowMenuDelegate(menuAnimation: menuAnimation),
+            children: menuItems
+                .map<Widget>((IconData icon) => flowMenuItem(icon))
+                .toList(),
+          ),
         ),
-      ),
-
-
-            Container(
+        Container(
           width: 220,
           height: 50,
-          margin: EdgeInsets.fromLTRB( 0, 0, 0,0),
+          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
           child: RaisedButton(
-            elevation: 10,
-            color: Colors.white,
-            child: Text(" Source code here !",style: TextStyle(
-          color: Colors.black, fontSize: 20),),
-
-            onPressed:(){
-                  
-
-          Navigator.of(context).push(MaterialPageRoute(builder:  (context)=>Codeview()));
-          }),
+              elevation: 10,
+              color: Colors.white,
+              child: Text(
+                " Source code here !",
+                style: TextStyle(color: Colors.black, fontSize: 20),
+              ),
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => Codeview()));
+              }),
         ),
-
-
-
-          ],
+      ],
     );
   }
 }
@@ -209,7 +221,6 @@ class FlowMenuDelegate extends FlowDelegate {
   }
 }
 
-
 class Codeview extends StatefulWidget {
   @override
   _CodeviewState createState() => _CodeviewState();
@@ -218,23 +229,20 @@ class Codeview extends StatefulWidget {
 class _CodeviewState extends State<Codeview> {
   @override
   Widget build(BuildContext context) {
-    return  SafeArea(
+    return SafeArea(
       child: WidgetWithCodeView(
-  child: MyAwesomeWidget(),
-  sourceFilePath: 'lib/fluttermultiplelayout/flow.dart',
-  codeLinkPrefix: 'https://github.com/yashvenrakumar/flutter_widgets/blob/master/lib/fluttermultiplelayout/flow.dart',
+        child: MyAwesomeWidget(),
+        sourceFilePath: 'lib/fluttermultiplelayout/flow.dart',
+        codeLinkPrefix:
+            'https://github.com/yashvenrakumar/flutter_widgets/blob/master/lib/fluttermultiplelayout/flow.dart',
       ),
-      
     );
   }
 }
 
-  class MyAwesomeWidget extends StatelessWidget {
-    @override
-    Widget build(BuildContext context) {
-      return  SafeArea(
-        child: FlowApp());
-    }
+class MyAwesomeWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(child: FlowApp());
   }
- 
- 
+}

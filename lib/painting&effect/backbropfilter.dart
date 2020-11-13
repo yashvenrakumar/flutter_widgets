@@ -109,7 +109,7 @@ class _FrostedDemoState extends State<FrostedDemo> {
                   child: new Center(
                     child: new Text(
                       'Frosted',
-                      style: Theme.of(context).textTheme.display3
+                  
                     ),
                   ),
                 ),
